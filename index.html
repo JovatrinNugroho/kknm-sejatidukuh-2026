@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KKN-M UNY 2026 | Sejati Dukuh</title>
+    
+    <!-- Load Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Load FontAwesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #121212 0%, #1a1a2e 100%);
+            min-height: 100vh;
+        }
+
+        /* Container utama agar seperti tampilan HP di Desktop */
+        .app-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 40px 15px;
+            position: relative;
+        }
+
+        /* --- Animasi --- */
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .animate-up { animation: slideUpFade 0.6s ease forwards; opacity: 0; }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+
+        /* --- Tampilan Halaman (View) --- */
+        .view-section {
+            display: none; /* Sembunyikan semua section secara default */
+            animation: fadeIn 0.4s ease forwards;
+        }
+        .view-section.active {
+            display: block; /* Hanya tampilkan yang aktif */
+        }
+
+        /* --- Gaya Elemen Halaman Utama --- */
+        .profile-img-main {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #ffc107; /* Kuning UNY */
+            box-shadow: 0 0 20px rgba(255, 193, 7, 0.2);
+        }
+
+        .link-btn {
+            background-color: #212529;
+            color: #ffffff;
+            border: 1px solid #343a40;
+            border-radius: 15px;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .link-btn:hover {
+            background-color: #1a1a1a;
+            color: #ffc107;
+            transform: scale(1.03);
+            border-color: #ffc107;
+            box-shadow: 0 10px 20px rgba(255, 193, 7, 0.15);
+        }
+
+        /* Tombol Spesial (Anggota) */
+        .btn-special {
+            background: linear-gradient(45deg, #ffc107, #ff9800);
+            color: #000 !important;
+            border: none;
+            font-weight: bold;
+        }
+        .btn-special:hover {
+            background: linear-gradient(45deg, #ff9800, #e68a00);
+            color: #fff !important;
+        }
+
+        /* --- Gaya Elemen Halaman Tim --- */
+        .top-nav {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 15px;
+        }
+        
+        .btn-back {
+            background-color: #212529;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+        .btn-back:hover { background-color: #ffc107; color: #000; }
+
+        .team-card {
+            background-color: #212529;
+            border: 1px solid #343a40;
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            height: 100%;
+        }
+        .team-card:hover {
+            border-color: #ffc107;
+            transform: translateY(-5px);
+        }
+        .team-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border: 2px solid #495057;
+        }
+        .role-badge {
+            font-size: 0.75rem;
+            background-color: #ffc107;
+            color: #000;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        /* --- Gaya Elemen Detail Anggota --- */
+        .member-detail-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 20px;
+            object-fit: cover;
+            border: 3px solid #ffc107;
+            margin-bottom: 20px;
+        }
+        .bio-box {
+            background-color: #1a1a2e;
+            border: 1px solid #343a40;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: justify;
+            font-size: 0.95rem;
+            color: #cccccc;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- ============================== -->
+        <!-- 1. HALAMAN UTAMA (LINK IN BIO) -->
+        <!-- ============================== -->
+        <div id="view-home" class="view-section active text-center">
+            <img src="logo-kkn.png" alt="Logo KKN" class="profile-img-main mb-3 animate-up" onerror="this.src='https://placehold.co/120x120/ffc107/000?text=KKN'">
+            
+            <div class="animate-up delay-1">
+                <h2 class="fw-bold mb-1">KKN-M UNY 2026</h2>
+                <p class="text-muted mb-4">Sejati Dukuh, Moyudan</p>
+            </div>
+
+            <div class="d-flex flex-column gap-3 animate-up delay-2">
+                <!-- Tombol Navigasi ke Halaman Anggota -->
+                <button onclick="switchView('view-team')" class="btn link-btn btn-special py-3 fw-semibold">
+                    <i class="fa-solid fa-users icon-wrapper"></i>
+                    Kenali Anggota Kami
+                </button>
+
+                <a href="https://instagram.com/..." class="btn link-btn py-3 fw-semibold">
+                    <i class="fa-brands fa-instagram text-danger icon-wrapper"></i> Instagram KKN
+                </a>
+                
+                <a href="https://wa.me/..." class="btn link-btn py-3 fw-semibold">
+                    <i class="fa-brands fa-whatsapp text-success icon-wrapper"></i> Hubungi Kami (WA)
+                </a>
+
+                <a href="https://maps.google.com/..." class="btn link-btn py-3 fw-semibold">
+                    <i class="fa-solid fa-map-location-dot text-primary icon-wrapper"></i> Lokasi Posko
+                </a>
+            </div>
+            
+            <div class="animate-up delay-3 mt-5">
+                <small class="text-muted">© 2026 KKN Mandiri UNY</small>
+            </div>
+        </div>
+
+
+        <!-- ============================== -->
+        <!-- 2. HALAMAN DAFTAR ANGGOTA      -->
+        <!-- ============================== -->
+        <div id="view-team" class="view-section">
+            <div class="top-nav">
+                <button onclick="switchView('view-home')" class="btn-back"><i class="fa-solid fa-arrow-left"></i></button>
+                <h4 class="mb-0 fw-bold">Struktur Tim KKN</h4>
+            </div>
+
+            <!-- Grid Anggota akan digenerate oleh JavaScript di sini -->
+            <div class="row g-3" id="team-grid"></div>
+        </div>
+
+
+        <!-- ============================== -->
+        <!-- 3. HALAMAN DETAIL PROFIL       -->
+        <!-- ============================== -->
+        <div id="view-member" class="view-section">
+            <div class="top-nav">
+                <button onclick="switchView('view-team')" class="btn-back"><i class="fa-solid fa-arrow-left"></i></button>
+                <h4 class="mb-0 fw-bold">Profil Anggota</h4>
+            </div>
+
+            <div class="text-center mt-4">
+                <img src="" id="detail-img" class="member-detail-img shadow-lg" alt="Foto Anggota">
+                <h2 id="detail-name" class="fw-bold mb-1">Nama Anggota</h2>
+                <div class="mb-3"><span id="detail-role" class="role-badge">Jabatan</span></div>
+                <p id="detail-major" class="text-warning mb-4"><i class="fa-solid fa-graduation-cap"></i> Jurusan / Fakultas</p>
+                
+                <!-- Sosial Media Individu -->
+                <div class="d-flex justify-content-center gap-3 mb-4">
+                    <a href="#" id="detail-ig" class="btn-back text-decoration-none" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" id="detail-linkedin" class="btn-back text-decoration-none" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+
+                <div class="bio-box text-start">
+                    <h6 class="fw-bold text-white mb-2"><i class="fa-solid fa-quote-left text-warning me-2"></i>Tentang Saya</h6>
+                    <p id="detail-bio" class="mb-0">Deskripsi singkat atau motto hidup anggota KKN akan muncul di sini.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ============================== -->
+    <!-- LOGIC JAVASCRIPT               -->
+    <!-- ============================== -->
+    <script>
+        // Data Anggota KKN (Bisa diedit dan ditambah sesuai kebutuhan)
+        const teamData = [
+            {
+                id: "ketua",
+                name: "Arya Bima",
+                role: "Ketua KKN",
+                major: "Manajemen - FEB",
+                bio: "Bertanggung jawab atas koordinasi seluruh program kerja KKN di Sejati Dukuh. Bersemangat dalam pengembangan potensi UMKM desa.",
+                photo: "https://placehold.co/300x300/212529/ffc107?text=Ketua",
+                ig: "https://instagram.com/arya",
+                linkedin: "https://linkedin.com/in/arya"
+            },
+            {
+                id: "wakil",
+                name: "Siti Nurhaliza",
+                role: "Wakil Ketua",
+                major: "Pendidikan Sosiologi - FISIPOL",
+                bio: "Membantu ketua dalam mengawasi jalannya proker serta menjalin komunikasi yang baik dengan tokoh masyarakat setempat.",
+                photo: "https://placehold.co/300x300/212529/ffc107?text=Wakil",
+                ig: "https://instagram.com/siti",
+                linkedin: "https://linkedin.com/in/siti"
+            },
+            {
+                id: "sekretaris",
+                name: "Dina Mariana",
+                role: "Sekretaris",
+                major: "Sastra Indonesia - FBS",
+                bio: "Mengurus segala administrasi, persuratan, dan penyusunan laporan akhir KKN. Pecinta kucing dan penikmat senja.",
+                photo: "https://placehold.co/300x300/212529/ffc107?text=Sekre",
+                ig: "https://instagram.com/dina",
+                linkedin: "https://linkedin.com/in/dina"
+            },
+            {
+                id: "bendahara",
+                name: "Reza Rahadian",
+                role: "Bendahara",
+                major: "Akuntansi - FEB",
+                bio: "Mengatur sirkulasi keuangan kelompok. Transparan, teliti, dan disiplin dalam mencatat setiap pengeluaran proker.",
+                photo: "https://placehold.co/300x300/212529/ffc107?text=Benda",
+                ig: "https://instagram.com/reza",
+                linkedin: "https://linkedin.com/in/reza"
+            },
+            {
+                id: "pdd",
+                name: "Bagas Kara",
+                role: "Koor. PDD",
+                major: "Ilmu Komunikasi - FISIPOL",
+                bio: "Orang di balik layar akun media sosial KKN Sejati Dukuh. Suka mendokumentasikan senyum warga dan keseruan proker.",
+                photo: "https://placehold.co/300x300/212529/ffc107?text=PDD",
+                ig: "https://instagram.com/bagas",
+                linkedin: "https://linkedin.com/in/bagas"
+            }
+        ];
+
+        // Fungsi untuk merender daftar anggota ke HTML
+        function renderTeamGrid() {
+            const grid = document.getElementById("team-grid");
+            let htmlContent = "";
+
+            teamData.forEach(member => {
+                htmlContent += `
+                <div class="col-6">
+                    <div class="team-card animate-up" onclick="showMemberProfile('${member.id}')">
+                        <img src="${member.photo}" alt="${member.name}">
+                        <h6 class="fw-bold mb-1 text-white">${member.name}</h6>
+                        <span class="role-badge">${member.role}</span>
+                    </div>
+                </div>
+                `;
+            });
+
+            grid.innerHTML = htmlContent;
+        }
+
+        // Fungsi untuk pindah antar halaman (view)
+        function switchView(targetViewId) {
+            // Sembunyikan semua view
+            document.querySelectorAll('.view-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Tampilkan view yang dituju dan gulir ke atas
+            document.getElementById(targetViewId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // Fungsi untuk menampilkan profil detail anggota
+        function showMemberProfile(memberId) {
+            // Cari data anggota berdasarkan ID
+            const member = teamData.find(m => m.id === memberId);
+            
+            if(member) {
+                // Isi data ke dalam HTML
+                document.getElementById('detail-img').src = member.photo;
+                document.getElementById('detail-name').innerText = member.name;
+                document.getElementById('detail-role').innerText = member.role;
+                document.getElementById('detail-major').innerHTML = `<i class="fa-solid fa-graduation-cap"></i> ${member.major}`;
+                document.getElementById('detail-bio').innerText = member.bio;
+                
+                document.getElementById('detail-ig').href = member.ig;
+                document.getElementById('detail-linkedin').href = member.linkedin;
+
+                // Pindah ke halaman profil
+                switchView('view-member');
+            }
+        }
+
+        // Inisialisasi saat halaman pertama kali dimuat
+        window.onload = () => {
+            renderTeamGrid();
+        };
+
+    </script>
+</body>
+</html>
